@@ -2,7 +2,6 @@ FROM composer:2 AS composer
 
 FROM php:8.4-fpm-alpine
 
-
 # LABEL maintainer="Antônio <antonio@email.com>"
 
 ARG PUID=1000
@@ -76,16 +75,12 @@ RUN mkdir -p storage bootstrap/cache public/build/assets \
     && chown -R www:www /var/www/html/pixseguros \
     && chmod -R 775 storage bootstrap/cache public/build
 
-# Ajustar permissões
-RUN chown -R www-data:www-data /var/www/html && \
-    find /var/www/html -type f -exec chmod 644 {} \; && \
-    find /var/www/html -type d -exec chmod 755 {} \;
-
 # Entrypoint
 COPY docker/entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN chmod +x /usr/local/bin/entrypoint.sh
 
-USER www
+# Executar entrypoint como root para criar diretórios, depois mudar para www
+# USER www será aplicado pelo entrypoint após configuração
 
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
 CMD ["php-fpm"]

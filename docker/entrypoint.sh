@@ -3,10 +3,15 @@ set -e
 
 echo "=== Iniciando entrypoint ==="
 
-# Diretórios
-mkdir -p storage/framework/{views,cache,sessions} bootstrap/cache
-chown -R www:www /var/www/html/pixseguros
-chmod -R 775 storage bootstrap/cache || true
+# Diretórios (criando individualmente para compatibilidade com sh)
+mkdir -p storage/framework/views || true
+mkdir -p storage/framework/cache || true
+mkdir -p storage/framework/cache/data || true
+mkdir -p storage/framework/sessions || true
+mkdir -p bootstrap/cache || true
+
+# Ajustar permissões (ignora erros se não tiver permissão)
+chmod -R 775 storage bootstrap/cache 2>/dev/null || true
 
 # Remove o arquivo hot do Vite para usar assets compilados
 rm -f public/hot
