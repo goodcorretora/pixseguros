@@ -44,8 +44,6 @@ RUN { \
 # Composer
 COPY --from=composer /usr/bin/composer /usr/bin/composer
 
-
-
 # Usuário não-root
 RUN addgroup -g ${PGID} www \
     && adduser -G www -u ${PUID} -g www -s /bin/sh -D www \

@@ -3,15 +3,31 @@ set -e
 
 echo "=== Iniciando entrypoint ==="
 
+# Instalar dependências do Composer se não existirem
+if [ ! -d "vendor" ] || [ ! -f "vendor/autoload.php" ]; then
+    echo "📦 Instalando dependências do Composer..."
+    composer install --no-interaction --prefer-dist --optimize-autoloader
+    echo "✓ Dependências instaladas"
+fi
+
+# Instalar dependências npm se não existirem (necessário para dev)
+if [ ! -d "node_modules" ]; then
+    echo "📦 Instalando dependências npm..."
+    npm install --silent
+    echo "✓ Dependências npm instaladas"
+fi
+
 # Diretórios (criando individualmente para compatibilidade com sh)
 mkdir -p storage/framework/views || true
 mkdir -p storage/framework/cache || true
 mkdir -p storage/framework/cache/data || true
 mkdir -p storage/framework/sessions || true
+mkdir -p storage/pail || true
+mkdir -p storage/logs || true
 mkdir -p bootstrap/cache || true
 
-# Ajustar permissões (ignora erros se não tiver permissão)
-chmod -R 775 storage bootstrap/cache 2>/dev/null || true
+# Ajustar permissões (torna gravável para todos para compatibilidade host/container)
+chmod -R 777 storage bootstrap/cache 2>/dev/null || true
 
 # Remove o arquivo hot do Vite para usar assets compilados
 rm -f public/hot
@@ -36,12 +52,13 @@ if ! grep -q '^APP_KEY=base64:' .env 2>/dev/null; then
     php artisan key:generate --force
 fi
 
-# Compilar assets (Vite)
-if [ "${APP_ENV}" = "production" ] || [ ! -d "public/build" ]; then
+# Compilar assets (Vite) apenas em produção
+if [ "${APP_ENV}" = "production" ]; then
     echo "🎨 Compilando assets frontend..."
-    npm install --silent
     npm run build
     echo "✓ Assets compilados"
+elif [ ! -d "public/build" ]; then
+    echo "⚠️  Assets não compilados. Execute 'npm run build' ou 'composer run dev'"
 fi
 
 # Otimizações

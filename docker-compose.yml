@@ -6,7 +6,7 @@ services:
       dockerfile: docker/Dockerfile
     container_name: pix_app
     volumes:
-      - .:/var/www/html
+      - ./pixseguros:/var/www/html/pixseguros
     environment:
       APP_ENV: ${APP_ENV:-local}
       APP_DEBUG: ${APP_DEBUG:-true}
@@ -33,7 +33,7 @@ services:
     image: nginx:alpine
     container_name: pix_nginx
     volumes:
-      - .:/var/www/html
+      - ./pixseguros:/var/www/html/pixseguros
       - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
     # Porta 8080 para acesso direto (enquanto Traefik não está configurado)
     ports:
