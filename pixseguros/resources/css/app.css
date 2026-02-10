@@ -1,0 +1,117 @@
+@import 'tailwindcss';
+
+@plugin '@tailwindcss/forms';
+@plugin '@tailwindcss/typography';
+@plugin '@tailwindcss/aspect-ratio';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+
+@theme {
+  --color-primary-50: #f0fdfa;
+  --color-primary-100: #ccfbf1;
+  --color-primary-200: #99f6e4;
+  --color-primary-300: #5eead4;
+  --color-primary-400: #2dd4bf;
+  --color-primary-500: #14b8a6;
+  --color-primary-600: #0d9488;
+  --color-primary-700: #0f766e;
+  --color-primary-800: #115e59;
+  --color-primary-900: #134e4a;
+
+  --color-secondary-50: #f9fafb;
+  --color-secondary-100: #f3f4f6;
+  --color-secondary-200: #dfdfdf;
+  --color-secondary-300: #cbcbcb;
+  --color-secondary-400: #b2b2b2;
+  --color-secondary-500: #989898;
+  --color-secondary-600: #7e7e7e;
+  --color-secondary-700: #636363;
+  --color-secondary-800: #484a4a;
+  --color-secondary-900: #343636;
+
+  --color-tertiary-50: #f8fafc;
+  --color-tertiary-100: #f1f5f9;
+  --color-tertiary-200: #e2e8f0;
+  --color-tertiary-300: #cbd5e1;
+  --color-tertiary-400: #94a3b8;
+  --color-tertiary-500: #64748b;
+  --color-tertiary-600: #475569;
+  --color-tertiary-700: #334155;
+  --color-tertiary-800: #1e293b;
+  --color-tertiary-900: #0f172a;
+  --color-tertiary-950: #020617;
+
+  --font-sans:
+    Nunito, ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji',
+    'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+
+  --min-width-8: 2rem;
+
+  --container-14: 14rem;
+}
+
+@utility container {
+  @media (width >= --theme(--breakpoint-sm)) {
+    max-width: none;
+  }
+  @media (width >= 640px) {
+    max-width: 640px;
+  }
+  @media (width >= 768px) {
+    max-width: 768px;
+  }
+  @media (width >= 1024px) {
+    max-width: 1024px;
+  }
+  @media (width >= 1280px) {
+    max-width: 1280px;
+  }
+  @media (width >= 1280px) {
+    max-width: 1280px;
+  }
+}
+
+/*
+  The default border color has changed to `currentcolor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentcolor);
+  }
+}
+
+[x-cloak] {
+    display: none;
+}
+
+.scroll-snap-x {
+    scroll-snap-type: x mandatory;
+}
+  
+.snap-center {
+    scroll-snap-align: center;
+}
+  
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+  
+.no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+
+.inset-l-full {
+  left: 50%;
+}

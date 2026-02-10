@@ -1,0 +1,18 @@
+<h2>Dados Pessoais</h2><br><br>
+Você recebeu uma solicitação de: {{ $name }}<br><br>
+<strong>Dados do usuário:</strong><br><br>
+Nome: {{ $name }}<br>
+Email: {{ $email }}<br>
+Celular: {{ $phone_celular }}<br>
+CPF/CNPJ: {{ $cpf_cnpj }}<br>
+@if(isset($representante) && $representante)
+Representante: {{ $representante }}<br>
+@endif
+Data de Nascimento: {{ $datadenascimento }}<br>
+Identidade: {{ $identidade }}<br>
+Órgão Expedidor: {{ $orgaoexpedidor }}<br>
+Data de Expedição: {{ $datadeexpedicao }}<br>
+Gênero: {{ $genero }}<br>
+Estado civil: {{ $estadocivil }}<br>
+<br><br>
+Obrigado

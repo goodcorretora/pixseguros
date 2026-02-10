@@ -1,0 +1,42 @@
+<x-layouts::app>
+    <x-slot name="title">Perfil</x-slot>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('Profile') }}
+        </h2>
+    </x-slot>
+
+    <div class="py-12">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
+
+            <div class="p-4 sm:p-8 bg-white shadow-sm sm:rounded-lg">
+                <div class="max-w-xl">
+                    <livewire:profile.update-profile-information-form />
+                </div>
+            </div>
+
+            <div class="p-4 sm:p-8 bg-white shadow-sm sm:rounded-lg">
+                <div class="max-w-xl">
+                    <a href="{{ route('endereco') }}">
+                        <x-primary-button class="w-full mb-2">Atualizar Endereço</x-primary-button>
+                    </a>
+                    <a href="{{ route('documentos') }}">
+                        <x-primary-button class="w-full">Atualizar Dados Pessoais</x-primary-button>
+                    </a>
+                </div>
+            </div>
+
+            <div class="p-4 sm:p-8 bg-white shadow-sm sm:rounded-lg">
+                <div class="max-w-xl">
+                    <livewire:profile.update-password-form />
+                </div>
+            </div>
+
+            <div class="p-4 sm:p-8 bg-white shadow-sm sm:rounded-lg">
+                <div class="max-w-xl">
+                    <livewire:profile.delete-user-form />
+                </div>
+            </div>
+        </div>
+    </div>
+</x-layouts::app>
